@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header id="header">
+        <div class="logo">
+            <a href="{% url 'index' %}" class="logo-brand">Tech-Life.</a>
+        </div>
+
+        <div class="navbar">
+            <a href="{% url 'index' %}" class="btn nav">Каталог</a>
+        </div>
+
+        <div class="user">
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="btn usr">Аккаунт</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn usr">Аккаунт</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="product-container">
+            <div class="product-info">
+                <h1>Оформление заказа</h1>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Оформить заказ</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer id="footer1">
+        <p>&copy Tech-Life 2023.</p>
+    </footer>
+
+</body>
